@@ -7,7 +7,8 @@ import * as moment from 'moment'
 
 interface PullPayment {
   pointer: string
-  amount: BigNumber.Value
+  amount: BigNumber.Value,
+  timeout?: number
 }
 
 export interface RecurringPull extends PullPayment {
@@ -47,6 +48,8 @@ export class IlpPullManager extends EventEmitter {
     return SPSP.pull(require('ilp-plugin')(), {
       pointer: pullPayment.pointer,
       amount: pullPayment.amount
+    }, {
+      timeout: pullPayment.timeout
     })
   }
 
